@@ -1,0 +1,147 @@
+<!-- -->
+<launch>
+        <!-- VELODYNE INITIAL GUESS -->
+
+        <!-- for velodyne data 2016.02.18.15.46 >
+        <arg name="x_startpoint" default="-6547.52" />
+        <arg name="y_startpoint" default="-34176.93" />
+        <arg name="z_startpoint" default="7.0" />
+        <arg name="yaw_startpoint" default="-33.3" />
+        <arg name="pitch_startpoint" default="1.3" />
+        <arg name="roll_startpoint" default="-0.7" /-->
+
+        <!-- angles for tilted velodyne expoerimetns (not sure) >
+        <arg name="yaw_startpoint" default="-5.0" />
+        <arg name="pitch_startpoint" default="-33.0" />
+        <arg name="roll_startpoint" default="0.0" / -->
+
+        <!-- for velodyne data 2016.02.18.15.39 -->
+        <!-- yaw is in degree -->
+        <arg name="x_startpoint" default="0.0" />
+        <arg name="y_startpoint" default="0.0" />
+        <arg name="z_startpoint" default="0.0" />
+        <arg name="yaw_startpoint_deg" default="180.0" />
+        <arg name="pitch_startpoint_deg" default="0.0" />
+        <arg name="roll_startpoint_deg" default="0.0" />
+
+
+        <!-- NDT PARAMETERS -->
+        <arg name="ndt_grid_size" default="1.0" />
+        <arg name="ndt_search_radius" default="1.0" />
+        <arg name="voxel_leaf_size" default="1.0" />
+        <arg name="do_iterative_distortion_removal" default="false" />
+        <arg name="do_matching_distortion_removal" default="true" />
+
+        <arg name="skipSeq" default="0" />
+
+        <!-- SAVE FILES -->
+        <arg name="save_scan" default="true" />
+        <arg name="save_transformed_scan" default="true" />
+        <arg name="save_pre_transformed_scan" default="true" />
+        <arg name="save_aligned_scan" default="true" />
+        <arg name="save_predicted_scan" default="true" />
+        <arg name="save_transformed_dis_scan" default="true" />
+
+        <!-- SHOW IN RVIZ -->
+
+        <arg name="show_car_trajectory" default="true" />
+        <!--show both point cloud and NDT map -->
+        <arg name="show_map" default="true" />
+        <arg name="show_initial_scan" default="true" />
+        <arg name="show_trtanformed_scan" default="true" />
+        <arg name="show_filtered_scan" default="true" />
+        <arg name="show_scan" default="true" />
+
+        <!-- PREDICTION FROM FILE -->
+        <arg name="use_prediction_from_file" default="true" />
+        <arg name="save_prediction_to_file" default="false" />
+
+
+        <!-- FILE PATH -->
+
+        <arg name="map_load_mode" default="0" />
+        <arg name="map_file_path" default="/home/ehsan/temp/input_data/_map/" />
+        <arg name="map_file_name" default="" />
+        <!--arg name="map_file_name" default="/home/ehsan/temp/input_data/Final point cloud map for 39.pcd" /-->
+        <!--arg name="map_file_name" default="/home/ehsan/workspace/input_data/map_matching/Final point cloud map for 39.pcd" /-->
+        <!--arg name="map_file_name" default="/home/ehsan/workspace/input_data/map_matching/Final point cloud map for 39_extracted 2 buildingS.pcd" /-->
+
+        <!--arg name="map_file_name" default="/home/ehsan/temp/input_data/MMS after calibration.pcd" /-->
+        <!--arg name="map_file_name" default="/home/ehsan/temp/input_data/Final plane map for 39.pcd" /-->
+        <!--arg name="map_file_name" default="/home/ehsan/temp/input_data/Hitotsubashi-Compeleted_with_VLP16.pcd" /-->
+        <!--arg name="map_file_name" default="/home/ehsan/temp/input_data/planar_surface_map_groundpoints.pcd" /-->
+        <!--arg name="map_file_name" default="/home/ehsan/temp/input_data/planar_surface_map_groundpoints.pcd" /-->
+        <!--arg name="map_file_name" default="/home/ehsan/temp/input_data/planar_surface_map_with_ground.pcd" /-->
+        <arg name="save_path" default="/home/ehsan/workspace/results/groundtruth/" />
+        <!--arg name="save_path" default="/home/ehsan/workspace/results/code_test/"/-->
+
+        <arg name="predicted_pose_path" default="/home/ehsan/workspace/input_data/predicted_pose_list.csv" />
+
+        <node name="ndt_groundtruth_generator_v1_0" pkg="ndt_groundtruth_generator" type="ndt_groundtruth_generator_v1_0"  output="screen" >
+
+            <param name="x_startpoint" value="$(arg x_startpoint)" />
+            <param name="y_startpoint" value="$(arg y_startpoint)" />
+            <param name="z_startpoint" value="$(arg z_startpoint)" />
+            <param name="yaw_startpoint_deg" value="$(arg yaw_startpoint_deg)" />
+            <param name="pitch_startpoint_deg" value="$(arg pitch_startpoint_deg)" />
+            <param name="roll_startpoint_deg" value="$(arg roll_startpoint_deg)" />
+
+            <param name="ndt_grid_size" value="$(arg ndt_grid_size)" />
+            <param name="ndt_search_radius" value="$(arg ndt_search_radius)" />
+
+            <param name="voxel_leaf_size" value="$(arg voxel_leaf_size)" />
+            <param name="do_iterative_distortion_removal" value="$(arg do_iterative_distortion_removal)" />
+            <param name="do_matching_distortion_removal" value="$(arg do_matching_distortion_removal)" />
+
+            <param name="skipSeq" value="$(arg skipSeq)" />
+
+
+            <param name="save_scan" value="$(arg save_scan)" />
+            <param name="save_transformed_scan" value="$(arg save_transformed_scan)" />
+            <param name="save_pre_transformed_scan" value="$(arg save_pre_transformed_scan)" />
+            <param name="save_aligned_scan" value="$(arg save_aligned_scan)" />
+            <param name="save_transformed_dis_scan" value="$(arg save_transformed_dis_scan)" />
+            <param name="save_predicted_scan" value="$(arg save_predicted_scan)" />
+
+            <param name="show_car_trajectory" value="$(arg show_car_trajectory)" />
+            <param name="show_map" value="$(arg show_map)" />
+            <param name="show_initial_scan" value="$(arg show_initial_scan)" />
+            <param name="show_trtanformed_scan" value="$(arg show_trtanformed_scan)" />
+            <param name="show_filtered_scan" value="$(arg show_filtered_scan)" />
+            <param name="show_scan" value="$(arg show_scan)" />
+
+            <param name="use_prediction_from_file" value="$(arg use_prediction_from_file)" />
+            <param name="save_prediction_to_file" value="$(arg save_prediction_to_file)" />
+
+
+
+            <param name="map_load_mode" value="$(arg map_load_mode)" />
+            <param name="map_file_path" value="$(arg map_file_path)" />
+            <param name="map_file_name" value="$(arg map_file_name)" />
+            <param name="save_path" value="$(arg save_path)" />
+            <param name="predicted_pose_path" value="$(arg predicted_pose_path)" />
+
+            <param name="steps" value= "0.05" />
+            <param name="yaw_steps" value= "0.5" />
+            <param name="yaw_iteration" value= "2" />
+            <param name="x_iteration" value= "2" />
+            <param name="y_iteration" value= "2" />
+            <param name="lidar_range" value="30.0" />
+
+
+            <!-- GET INITIAL GUESS FROM MATRIX -->
+
+            <!-- initial guess for scan 13 (Velodyne scan 2017.06.25.15.51.10-Frame 8649) and map merged S16_L1_L2_S19L1 -->
+            <!--
+                    0.062144704163 -0.996374905109 0.058095954359 -6674.901855468750
+                    0.995548725128 0.057750284672 -0.074482791126 -34077.960937500000
+                    0.070857718587 0.062466062605 0.995528578758 6.852033138275
+                    0.000000000000 0.000000000000 0.000000000000 1.000000000000
+            -->
+            <!--rosparam param ="tf_vector" > [0.06214, -0.9963, 0.05809, -6674.90185, 0.99554, 0.057750, -0.07448, -34077.96093, 0.070857, 0.06246, 0.99552, 6.85203] </rosparam -->
+
+
+		<!--remap from="/points_raw" to="/velodyne_points"/--> 
+  	</node>
+  
+</launch>
